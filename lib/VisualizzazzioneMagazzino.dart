@@ -3,6 +3,7 @@ import 'package:untitled/CaricaScaricaMagazzino.dart';
 import 'package:untitled/InserisciResi.dart';
 import 'DMag.dart';
 
+//visualizzo i banccali trovati con il codice cercato
 class VMagazzino extends StatelessWidget {
   List<int> dropDownValue=[]; //numero risultati dropdown
   List<DMag> file=[]; //lista risultati
@@ -65,7 +66,7 @@ class VMagazzino extends StatelessWidget {
                           style: const TextStyle(fontWeight: FontWeight.bold),),
                         onTap: () => Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => CSMagazzino(file: file[index])),),
+                          MaterialPageRoute(builder: (context) => SSMagazzino(file: file[index])),),
                         trailing: const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
                       ),
                     ),

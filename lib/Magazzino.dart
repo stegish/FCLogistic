@@ -29,8 +29,7 @@ class _MagazzinoState extends State<Magazzino> {
     if(input[0]!="") {
       codice = input[0].text;
       int dim = 0;
-      var file = File(
-          "/storage/emulated/0/Android/data/com.example.untitled/files/magazzino.xlsx");
+      var file = File("/storage/emulated/0/Android/data/com.example.untitled/files/magazzino.xlsx");
       var bytes = File(file.path).readAsBytesSync();
       var excel = Excel.decodeBytes(bytes);
       var table = "magazzino";
@@ -41,13 +40,8 @@ class _MagazzinoState extends State<Magazzino> {
         for (int i = 1; i < rigaMax; i++) {
           String cella = "C" + i.toString();
           //int prova = 42205482;
-          print(a
-              .cell(CellIndex.indexByString(cella))
-              .value);
-          if (a
-              .cell(CellIndex.indexByString(cella))
-              .value
-              .toString() == codice) {
+          print(a.cell(CellIndex.indexByString(cella)).value);
+          if (a.cell(CellIndex.indexByString(cella)).value.toString() == codice) {
             print("trovato");
             String colonna = "D";
             String riga = (i).toString();
