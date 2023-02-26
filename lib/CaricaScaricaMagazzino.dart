@@ -6,6 +6,9 @@ import 'package:untitled/snakBar.dart';
 import 'DMag.dart';
 import 'package:path/path.dart';
 
+
+//godo ce la ho fatta
+
 class CSMagazzino extends StatefulWidget{
    DMag file;
    CSMagazzino({Key? key, required this.file}) :super(key: key);
