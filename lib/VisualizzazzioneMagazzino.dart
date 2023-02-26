@@ -4,14 +4,13 @@ import 'package:untitled/InserisciResi.dart';
 import 'DMag.dart';
 
 class VMagazzino extends StatelessWidget {
-  List<int> dropDownValue=[];
-  List<DMag> file=[];
+  List<int> dropDownValue=[]; //numero risultati dropdown
+  List<DMag> file=[]; //lista risultati
   VMagazzino({Key? key, required this.file}):super(key:key);
-  //42102204
 
   @override
   Widget build(BuildContext context) {
-    const title = '           BANCALI';
+    const title = '          BANCALI';
     return MaterialApp(
       title: title,
       theme: ThemeData(

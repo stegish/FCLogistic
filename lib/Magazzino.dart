@@ -1,9 +1,7 @@
 import 'dart:io';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:excel/excel.dart';
-import 'package:untitled/PercorsoFile.dart';
 import 'package:untitled/VisualizzazzioneMagazzino.dart';
 import 'DMag.dart';
 import 'package:untitled/snakBar.dart';
