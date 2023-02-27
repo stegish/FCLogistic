@@ -57,10 +57,6 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
         a.updateCell(CellIndex.indexByString("D" + file.riga), precedenti - quantita);
         print(DateTime.now());
         print(magazzino.value);
-        List<int>? fileBytes = excel.save();
-        if (fileBytes != null) {
-          File(join(Poutput))..createSync(recursive: true)..writeAsBytesSync(fileBytes);
-        }
         if(resi==null){
           resi.updateCell(CellIndex.indexByString("B"+resiMax), file.bancale);
           resi.updateCell(CellIndex.indexByString("C"+resiMax), file.codice);
@@ -72,6 +68,10 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
           impegnato.updateCell(CellIndex.indexByString("C"+impegnatoMax), file.codice);
           impegnato.updateCell(CellIndex.indexByString("D"+impegnatoMax), quantitaI[0]);
           impegnato.updateCell(CellIndex.indexByString("E"+impegnatoMax), DateTime.now().day.toString() + "/" + DateTime.now().month.toString());
+        }
+        List<int>? fileBytes = excel.save();
+        if (fileBytes != null) {
+          File(join(Poutput))..createSync(recursive: true)..writeAsBytesSync(fileBytes);
         }
         GlobalValues.showSnackbar(_scaffoldKey3, "FATTO","materiale scaricato","successo");
       }else if(precedenti==quantita){
@@ -79,10 +79,6 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
         a.removeRow(int.parse(file.riga)-1);
         print(DateTime.now());
         print(magazzino.value);
-        List<int>? fileBytes = excel.save();
-        if (fileBytes != null) {
-          File(join(Poutput))..createSync(recursive: true)..writeAsBytesSync(fileBytes);
-        }
         if(resi==null){
           resi.updateCell(CellIndex.indexByString("B"+resiMax), file.bancale);
           resi.updateCell(CellIndex.indexByString("C"+resiMax), file.codice);
@@ -94,6 +90,10 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
           impegnato.updateCell(CellIndex.indexByString("C"+impegnatoMax), file.codice);
           impegnato.updateCell(CellIndex.indexByString("D"+impegnatoMax), quantitaI[0]);
           impegnato.updateCell(CellIndex.indexByString("E"+impegnatoMax), DateTime.now().day.toString() + "/" + DateTime.now().month.toString());
+        }
+        List<int>? fileBytes = excel.save();
+        if (fileBytes != null) {
+          File(join(Poutput))..createSync(recursive: true)..writeAsBytesSync(fileBytes);
         }
         GlobalValues.showSnackbar(_scaffoldKey3, "FATTO","materiale scaricato","successo");
       }else{

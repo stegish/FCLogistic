@@ -92,7 +92,7 @@ class _SMagazzinoState extends State<SMagazzino> {
 
   //Reindirizzamento alla pagina VMagazzino
   void VaiVMagazzino() {
-    if(input[1]=='') {
+    if(input[1]!=''&&!isChecked) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => VMagazzino(file: risultato)),);
     }else{
       Navigator.push(context, MaterialPageRoute(builder: (context) => VMagazzino(file: risultato,cliente: input[1].text)),);
@@ -178,7 +178,7 @@ class _SMagazzinoState extends State<SMagazzino> {
             ),
             Padding(padding: EdgeInsets.all(30.0),
               child :TextFormField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 controller: input[1],
                 enabled: isChecked,
                 decoration: const InputDecoration(
