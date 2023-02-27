@@ -7,7 +7,8 @@ import 'DMag.dart';
 class VMagazzino extends StatelessWidget {
   List<int> dropDownValue=[]; //numero risultati dropdown
   List<DMag> file=[]; //lista risultati
-  VMagazzino({Key? key, required this.file}):super(key:key);
+  String? cliente;
+  VMagazzino({Key? key, required this.file, String? cliente}):super(key:key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +65,7 @@ class VMagazzino extends StatelessWidget {
                         title:Text(
                           "${file[index].codice}\n agiunto il:${file[index].data}\n pezzi:${file[index].pezzi}\nbancale:${file[index].bancale}",
                           style: const TextStyle(fontWeight: FontWeight.bold),),
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SSMagazzino(file: file[index])),),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SSMagazzino(file: file[index], cliente: cliente)),),
                         trailing: const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
                       ),
                     ),

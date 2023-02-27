@@ -43,7 +43,7 @@ class _SMagazzinoState extends State<SMagazzino> {
 
   List<DMag> risultato = []; //lista con i vari risultati trovati
   static final GlobalKey<ScaffoldState> _scaffoldkey2 = new GlobalKey<ScaffoldState>(); //per la comparsa dei pop-up
-  final input = [TextEditingController()]; //variabile per l'input
+  final input = [TextEditingController(), TextEditingController()]; //variabile per l'input
   bool isChecked = false; //controlla se è un reso o no
 
   //cerca nel foglio excell il codice immesso in inpput[0] e salva ogni ccorrispondenza su risultato tramite il formato DMag
@@ -92,7 +92,11 @@ class _SMagazzinoState extends State<SMagazzino> {
 
   //Reindirizzamento alla pagina VMagazzino
   void VaiVMagazzino() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => VMagazzino(file: risultato)),);
+    if(input[1]=='') {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => VMagazzino(file: risultato)),);
+    }else{
+      Navigator.push(context, MaterialPageRoute(builder: (context) => VMagazzino(file: risultato,cliente: input[1].text)),);
+    }
   }
 
   //esegue la funzione cerca e capisce se ha trovato risultati o no
@@ -175,7 +179,7 @@ class _SMagazzinoState extends State<SMagazzino> {
             Padding(padding: EdgeInsets.all(30.0),
               child :TextFormField(
                 keyboardType: TextInputType.number,
-                controller: input[0],
+                controller: input[1],
                 enabled: isChecked,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.wrap_text),

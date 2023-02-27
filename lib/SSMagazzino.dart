@@ -9,17 +9,18 @@ import 'package:path/path.dart';
 
 class SSMagazzino extends StatefulWidget{
    DMag file;
-   SSMagazzino({Key? key, required this.file}) :super(key: key);
+   String? cliente;
+   SSMagazzino({Key? key, required this.file, String? cliente}) :super(key: key);
 
    @override
    State<SSMagazzino> createState() => _SSMagazzinoPageState(file: file);
 }
 
 class _SSMagazzinoPageState extends State<SSMagazzino>{
-
+  String? cliente; //cliente per cui fare il reso se ce
   DMag file;
   static final GlobalKey<ScaffoldState> _scaffoldKey3 = new GlobalKey<ScaffoldState>(); //key per i pop-up
-  _SSMagazzinoPageState({Key? key, required this.file});
+  _SSMagazzinoPageState({Key? key, required this.file, String? cliente});
 
   final quantitaI = [TextEditingController()]; //quantita' da rimuovere
 
@@ -34,12 +35,18 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
       var excel = Excel.decodeBytes(bytes);
       String riga = file.riga;
       var table = "magazzino";
+      var resit = "resi";
+      var impegnatot = "impegnato";
+      Sheet impegnato = excel[impegnatot];
       Sheet a = excel[table];
+      Sheet resi = excel[resit];
       print(table);
       var magazzino = a.cell(CellIndex.indexByString("D" + riga));
       int precedenti = 0;
       print("---");
       print(magazzino.value);
+      String resiMax = (resi.maxRows+1).toString();
+      String impegnatoMax = (impegnato.maxRows+1).toString();
       print("---");
       String Poutput = "/storage/emulated/0/Android/data/com.example.untitled/files/magazzino.xlsx";
       if (magazzino.value != null) {
@@ -54,6 +61,18 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
         if (fileBytes != null) {
           File(join(Poutput))..createSync(recursive: true)..writeAsBytesSync(fileBytes);
         }
+        if(resi==null){
+          resi.updateCell(CellIndex.indexByString("B"+resiMax), file.bancale);
+          resi.updateCell(CellIndex.indexByString("C"+resiMax), file.codice);
+          resi.updateCell(CellIndex.indexByString("D"+resiMax), quantitaI[0]);
+          resi.updateCell(CellIndex.indexByString("E"+resiMax), cliente);
+          resi.updateCell(CellIndex.indexByString("F"+resiMax), DateTime.now().day.toString() + "/" + DateTime.now().month.toString());
+        }else{
+          impegnato.updateCell(CellIndex.indexByString("B"+impegnatoMax), file.bancale);
+          impegnato.updateCell(CellIndex.indexByString("C"+impegnatoMax), file.codice);
+          impegnato.updateCell(CellIndex.indexByString("D"+impegnatoMax), quantitaI[0]);
+          impegnato.updateCell(CellIndex.indexByString("E"+impegnatoMax), DateTime.now().day.toString() + "/" + DateTime.now().month.toString());
+        }
         GlobalValues.showSnackbar(_scaffoldKey3, "FATTO","materiale scaricato","successo");
       }else if(precedenti==quantita){
         print(int.parse(file.riga));
@@ -63,6 +82,18 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
         List<int>? fileBytes = excel.save();
         if (fileBytes != null) {
           File(join(Poutput))..createSync(recursive: true)..writeAsBytesSync(fileBytes);
+        }
+        if(resi==null){
+          resi.updateCell(CellIndex.indexByString("B"+resiMax), file.bancale);
+          resi.updateCell(CellIndex.indexByString("C"+resiMax), file.codice);
+          resi.updateCell(CellIndex.indexByString("D"+resiMax), quantitaI[0]);
+          resi.updateCell(CellIndex.indexByString("E"+resiMax), cliente);
+          resi.updateCell(CellIndex.indexByString("F"+resiMax), DateTime.now().day.toString() + "/" + DateTime.now().month.toString());
+        }else{
+          impegnato.updateCell(CellIndex.indexByString("B"+impegnatoMax), file.bancale);
+          impegnato.updateCell(CellIndex.indexByString("C"+impegnatoMax), file.codice);
+          impegnato.updateCell(CellIndex.indexByString("D"+impegnatoMax), quantitaI[0]);
+          impegnato.updateCell(CellIndex.indexByString("E"+impegnatoMax), DateTime.now().day.toString() + "/" + DateTime.now().month.toString());
         }
         GlobalValues.showSnackbar(_scaffoldKey3, "FATTO","materiale scaricato","successo");
       }else{
