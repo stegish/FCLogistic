@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/CaricaScaricaMagazzino.dart';
+import 'package:untitled/SSMagazzino.dart';
 import 'package:untitled/InserisciResi.dart';
 import 'DMag.dart';
 

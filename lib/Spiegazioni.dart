@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:excel/excel.dart';
 import 'package:untitled/PercorsoFile.dart';
-import 'package:untitled/VisualizzazzioneMagazzino.dart';
+import 'package:untitled/VMagazzino.dart';
 import 'DMag.dart';
 
 

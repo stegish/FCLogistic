@@ -2,26 +2,22 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:excel/excel.dart';
-import 'package:untitled/VisualizzazzioneMagazzino.dart';
+import 'package:untitled/VMagazzino.dart';
 import 'DMag.dart';
 import 'package:untitled/snakBar.dart';
 
+class CMagazzino extends StatefulWidget {
+  const CMagazzino({Key? key}) : super(key: key);
 
-class Magazzino extends StatefulWidget {
-  const Magazzino({Key? key}) : super(key: key);
-
-  @override
-  State<Magazzino> createState() => _MagazzinoState();
+@override
+State<CMagazzino> createState() => _CMagazzinoState();
 }
 
-class _MagazzinoState extends State<Magazzino> {
+class _CMagazzinoState extends State<CMagazzino> {
   List<DMag> risultato = [];
   static final GlobalKey<ScaffoldState> _scaffoldkey2 = new GlobalKey<ScaffoldState>();
 
-  final input = [
-    TextEditingController()
-  ];
-
+  final input = [TextEditingController()];
 
   Future<List<DMag>> Cerca() async {
     String codice = "";

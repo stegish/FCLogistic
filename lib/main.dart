@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:excel/excel.dart';
-import 'package:untitled/VisualizzazzioneMagazzino.dart';
+import 'package:untitled/VMagazzino.dart';
 import 'DMag.dart';
 import 'package:untitled/snakBar.dart';
 
@@ -44,6 +44,7 @@ class _SMagazzinoState extends State<SMagazzino> {
   List<DMag> risultato = []; //lista con i vari risultati trovati
   static final GlobalKey<ScaffoldState> _scaffoldkey2 = new GlobalKey<ScaffoldState>(); //per la comparsa dei pop-up
   final input = [TextEditingController()]; //variabile per l'input
+  bool isChecked = false; //controlla se è un reso o no
 
   //cerca nel foglio excell il codice immesso in inpput[0] e salva ogni ccorrispondenza su risultato tramite il formato DMag
   Future<List<DMag>> Cerca() async {
@@ -153,13 +154,37 @@ class _SMagazzinoState extends State<SMagazzino> {
                 keyboardType: TextInputType.number,
                 controller: input[0],
                 decoration: const InputDecoration(
-                  icon: Icon(Icons.code),
+                  icon: Icon(Icons.numbers),
                   hintText: 'inserire il codice',
                   labelText: 'codice *',
                 ),
               ),
             ),
-          ],
+              Padding(padding: EdgeInsets.all(30.0),
+                child : Checkbox(
+                  checkColor: Colors.white,
+                  fillColor: MaterialStateProperty.all(Colors.red),
+                  value: isChecked,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      isChecked = value!;
+                    });
+                  },
+                ),
+            ),
+            Padding(padding: EdgeInsets.all(30.0),
+              child :TextFormField(
+                keyboardType: TextInputType.number,
+                controller: input[0],
+                enabled: isChecked,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.wrap_text),
+                  hintText: 'nome azienda',
+                  labelText: 'nome azienda reso',
+                ),
+              ),
+            ),
+      ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
