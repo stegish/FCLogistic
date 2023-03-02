@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/SSMagazzino.dart';
+import 'package:untitled/SCMagazzino.dart';
 import 'package:untitled/InserisciResi.dart';
 import 'DMag.dart';
 
@@ -65,7 +65,9 @@ class VMagazzino extends StatelessWidget {
                         title:Text(
                           "${file[index].codice}\n agiunto il:${file[index].data}\n pezzi:${file[index].pezzi}\nbancale:${file[index].bancale}",
                           style: const TextStyle(fontWeight: FontWeight.bold),),
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SSMagazzino(file: file[index], cliente: cliente)),),
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SSMagazzino(file: file[index], cliente: cliente)),),
                         trailing: const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
                       ),
                     ),

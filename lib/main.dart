@@ -74,7 +74,7 @@ class _SMagazzinoState extends State<SMagazzino> {
           String Ibancale = "B" + riga;
           var bancale = a.cell(CellIndex.indexByString(Ibancale));
           var data = a.cell(CellIndex.indexByString("E" + riga));
-          coll.add(DMag(necessari.value, riga, bancale.value, codice));
+          coll.add(DMag(necessari.value, riga, bancale.value, codice,"scarica"));
           if (data.value == null) {
             coll[dim].setData("");
           } else {
@@ -92,10 +92,10 @@ class _SMagazzinoState extends State<SMagazzino> {
 
   //Reindirizzamento alla pagina VMagazzino
   void VaiVMagazzino() {
-    if(input[1]!=''&&!isChecked) {
+    if(input[1].text!=''&&!isChecked) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => VMagazzino(file: risultato)),);
     }else{
-      Navigator.push(context, MaterialPageRoute(builder: (context) => VMagazzino(file: risultato,cliente: input[1].text)),);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => VMagazzino(file: risultato, cliente: input[1].text)),);
     }
   }
 

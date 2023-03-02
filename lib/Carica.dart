@@ -47,7 +47,7 @@ class _CMagazzinoState extends State<CMagazzino> {
             String Ibancale = "B" + riga;
             var bancale = a.cell(CellIndex.indexByString(Ibancale));
             var data = a.cell(CellIndex.indexByString("E" + riga));
-            coll.add(DMag(necessari.value, riga, bancale.value, codice));
+            coll.add(DMag(necessari.value, riga, bancale.value, codice, "carica"));
             if (data.value == null) {
               coll[dim].setData("");
             } else {
