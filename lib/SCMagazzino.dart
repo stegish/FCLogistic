@@ -13,7 +13,7 @@ class SSMagazzino extends StatefulWidget{
    SSMagazzino({Key? key, required this.file, String? cliente}) :super(key: key);
 
    @override
-   State<SSMagazzino> createState() => _SSMagazzinoPageState(file: file);
+   State<SSMagazzino> createState() => _SSMagazzinoPageState(file: file, cliente: cliente);
 }
 
 class _SSMagazzinoPageState extends State<SSMagazzino>{
