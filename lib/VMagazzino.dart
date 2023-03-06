@@ -8,7 +8,8 @@ class VMagazzino extends StatelessWidget {
   List<int> dropDownValue=[]; //numero risultati dropdown
   List<DMag> file=[]; //lista risultati
   String? cliente;
-  VMagazzino({Key? key, required this.file, String? cliente}):super(key:key);
+  String? commessa;
+  VMagazzino({Key? key, required this.file, this.cliente, this.commessa}):super(key:key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +66,12 @@ class VMagazzino extends StatelessWidget {
                         title:Text(
                           "${file[index].codice}\n agiunto il:${file[index].data}\n pezzi:${file[index].pezzi}\nbancale:${file[index].bancale}",
                           style: const TextStyle(fontWeight: FontWeight.bold),),
-                        onTap: () => Navigator.push(
+                        onTap: () =>[
+                          print(commessa),
+                          print(cliente),
+                          Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SSMagazzino(file: file[index], cliente: cliente)),),
+                          MaterialPageRoute(builder: (context) => SSMagazzino(file: file[index], cliente: cliente, commessa: commessa)),),],
                         trailing: const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
                       ),
                     ),

@@ -5,14 +5,12 @@ class DMag{
   String data ="";
   String codice="";
   List<int> A=[];
-  String azione= "";
 
-  DMag(int pezzii, String rigaa, String bancalee,String codicee, String azionee){
+  DMag(int pezzii, String rigaa, String bancalee,String codicee){
     riga = rigaa;
     pezzi = pezzii;
     bancale = bancalee;
     codice = codicee;
-    azione = azionee;
   }
 
   void SetRiga(String rigaa){

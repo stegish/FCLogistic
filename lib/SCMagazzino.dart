@@ -10,17 +10,19 @@ import 'package:path/path.dart';
 class SSMagazzino extends StatefulWidget{
    DMag file;
    String? cliente;
-   SSMagazzino({Key? key, required this.file, String? cliente}) :super(key: key);
+   String? commessa;
+   SSMagazzino({Key? key, required this.file, this.cliente, this.commessa}) :super(key: key);
 
    @override
-   State<SSMagazzino> createState() => _SSMagazzinoPageState(file: file, cliente: cliente);
+   State<SSMagazzino> createState() => _SSMagazzinoPageState(file: file, cliente: cliente, commessa: commessa);
 }
 
 class _SSMagazzinoPageState extends State<SSMagazzino>{
   String? cliente; //cliente per cui fare il reso se ce
   DMag file;
+  String? commessa;
   static final GlobalKey<ScaffoldState> _scaffoldKey3 = new GlobalKey<ScaffoldState>(); //key per i pop-up
-  _SSMagazzinoPageState({Key? key, required this.file, String? cliente});
+  _SSMagazzinoPageState({Key? key, required this.file, this.cliente, this.commessa});
 
   final quantitaI = [TextEditingController()]; //quantita' da rimuovere
 
@@ -40,16 +42,11 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
       Sheet impegnato = excel[impegnatot];
       Sheet a = excel[table];
       Sheet resi = excel[resit];
-      print(table);
       var magazzino = a.cell(CellIndex.indexByString("D" + riga));
       int precedenti = 0;
-      print("---");
       print(magazzino.value);
       String resiMax = (resi.maxRows+1).toString();
       String impegnatoMax = (impegnato.maxRows+1).toString();
-      print("---");
-      print("NOME CLIENTE-------------------");
-      print(cliente);
       String Poutput = "/storage/emulated/0/Android/data/com.example.untitled/files/magazzino.xlsx";
       if (magazzino.value != null) {
         precedenti = magazzino.value;
@@ -59,7 +56,7 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
         a.updateCell(CellIndex.indexByString("D" + file.riga), precedenti - quantita);
         print(DateTime.now());
         print(magazzino.value);
-        if(resi!=null){
+        if(cliente!=null&&commessa==null){
           resi.updateCell(CellIndex.indexByString("B"+resiMax), file.bancale);
           resi.updateCell(CellIndex.indexByString("C"+resiMax), file.codice);
           resi.updateCell(CellIndex.indexByString("D"+resiMax), quantita);
@@ -69,7 +66,8 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
           impegnato.updateCell(CellIndex.indexByString("B"+impegnatoMax), file.bancale);
           impegnato.updateCell(CellIndex.indexByString("C"+impegnatoMax), file.codice);
           impegnato.updateCell(CellIndex.indexByString("D"+impegnatoMax), quantita);
-          impegnato.updateCell(CellIndex.indexByString("E"+impegnatoMax), DateTime.now().day.toString() + "/" + DateTime.now().month.toString());
+          impegnato.updateCell(CellIndex.indexByString("E"+impegnatoMax), commessa);
+          impegnato.updateCell(CellIndex.indexByString("F"+impegnatoMax), DateTime.now().day.toString() + "/" + DateTime.now().month.toString());
         }
         List<int>? fileBytes = excel.save();
         if (fileBytes != null) {
@@ -81,7 +79,7 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
         a.removeRow(int.parse(file.riga)-1);
         print(DateTime.now());
         print(magazzino.value);
-        if(resi!=null){
+        if(cliente!=null&&commessa==null){
           resi.updateCell(CellIndex.indexByString("B"+resiMax), file.bancale);
           resi.updateCell(CellIndex.indexByString("C"+resiMax), file.codice);
           resi.updateCell(CellIndex.indexByString("D"+resiMax), quantita);
@@ -91,7 +89,8 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
           impegnato.updateCell(CellIndex.indexByString("B"+impegnatoMax), file.bancale);
           impegnato.updateCell(CellIndex.indexByString("C"+impegnatoMax), file.codice);
           impegnato.updateCell(CellIndex.indexByString("D"+impegnatoMax), quantita);
-          impegnato.updateCell(CellIndex.indexByString("E"+impegnatoMax), DateTime.now().day.toString() + "/" + DateTime.now().month.toString());
+          impegnato.updateCell(CellIndex.indexByString("E"+impegnatoMax), commessa);
+          impegnato.updateCell(CellIndex.indexByString("F"+impegnatoMax), DateTime.now().day.toString() + "/" + DateTime.now().month.toString());
         }
         List<int>? fileBytes = excel.save();
         if (fileBytes != null) {

@@ -59,7 +59,7 @@ class _ResiState extends State<Resi> {
           String Ibancale = "B" + riga;
           var bancale = a.cell(CellIndex.indexByString(Ibancale));
           var data = a.cell(CellIndex.indexByString("E" + riga));
-          coll.add(DMag(necessari.value, riga, bancale.value, codice,"scarica"));
+          coll.add(DMag(necessari.value, riga, bancale.value, codice));
           if (data.value == null) {
             coll[dim].setData("");
           } else {

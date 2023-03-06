@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:excel/excel.dart';
 import 'package:untitled/VMagazzino.dart';
+import 'Carica.dart';
 import 'DMag.dart';
 import 'package:untitled/snakBar.dart';
 
@@ -74,7 +75,7 @@ class _SMagazzinoState extends State<SMagazzino> {
           String Ibancale = "B" + riga;
           var bancale = a.cell(CellIndex.indexByString(Ibancale));
           var data = a.cell(CellIndex.indexByString("E" + riga));
-          coll.add(DMag(necessari.value, riga, bancale.value, codice,"scarica"));
+          coll.add(DMag(necessari.value, riga, bancale.value, codice));
           if (data.value == null) {
             coll[dim].setData("");
           } else {
@@ -90,6 +91,31 @@ class _SMagazzinoState extends State<SMagazzino> {
     }
   }
 
+
+  //permettte l'inserimento del nome azienda o della commessa in base alla selezione o no della checkbox
+ TextFormField ritff(bool reso){
+    if(reso){
+      return TextFormField(
+        keyboardType: TextInputType.text,
+        controller: input[1],
+        decoration: const InputDecoration(
+          icon: Icon(Icons.wrap_text),
+          hintText: 'nome azienda',
+        ),
+      );
+    }else{
+      return TextFormField(
+        keyboardType: TextInputType.text,
+        controller: input[1],
+        decoration: const InputDecoration(
+          icon: Icon(Icons.wrap_text),
+          hintText: 'SJ.....',
+          labelText: "codice commessa",
+        ),
+      );
+    }
+  }
+
   //Reindirizzamento alla pagina VMagazzino
   void VaiVMagazzino() {
     if(input[1].text!=''&&isChecked) {
@@ -97,10 +123,17 @@ class _SMagazzinoState extends State<SMagazzino> {
       print("CLIENTE1--------------");
       print(input[1].text);
     }else{
-      Navigator.push(context, MaterialPageRoute(builder: (context) => VMagazzino(file: risultato)),);
-      print("CLIENTE--------------");
+      Navigator.push(context, MaterialPageRoute(builder: (context) => VMagazzino(file: risultato, commessa: input[1].text)),);
+      print("COMMESSA--------------");
       print(input[1].text);
     }
+  }
+
+  void VaiCMagazzino(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CMagazzino()),);
+  }
+  void VaiSMagazzino(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SMagazzino()),);
   }
 
   //esegue la funzione cerca e capisce se ha trovato risultati o no
@@ -132,12 +165,12 @@ class _SMagazzinoState extends State<SMagazzino> {
             ListTile(
               leading: Icon(Icons.file_download),
               title: Text('Carica'),
-              onTap: VaiVMagazzino,
+              onTap: VaiCMagazzino,
             ),
             ListTile(
               leading: Icon(Icons.file_upload),
               title: Text('Scarica'),
-              onTap: VaiVMagazzino,
+              onTap: VaiSMagazzino,
             ),
             ListTile(
               leading: Icon(Icons.outbond),
@@ -169,7 +202,10 @@ class _SMagazzinoState extends State<SMagazzino> {
               ),
             ),
               Padding(padding: EdgeInsets.all(30.0),
-                child : Checkbox(
+                child :Row(
+                children: [
+                  Text("reso (spuntare se si effettua un reso)"),
+                  Checkbox(
                   checkColor: Colors.white,
                   fillColor: MaterialStateProperty.all(Colors.red),
                   value: isChecked,
@@ -179,18 +215,11 @@ class _SMagazzinoState extends State<SMagazzino> {
                     });
                   },
                 ),
+                ]
+                ),
             ),
             Padding(padding: EdgeInsets.all(30.0),
-              child :TextFormField(
-                keyboardType: TextInputType.text,
-                controller: input[1],
-                enabled: isChecked,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.wrap_text),
-                  hintText: 'nome azienda',
-                  labelText: 'nome azienda reso',
-                ),
-              ),
+              child :ritff(isChecked)
             ),
       ],
         ),
