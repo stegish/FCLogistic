@@ -28,8 +28,7 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
   final _formKey = GlobalKey<FormState>();
   var codici = [];
   var quantitaI = [];
-  static final GlobalKey<ScaffoldState> _scaffoldKey9 =
-      new GlobalKey<ScaffoldState>(); //key per i pop-up
+  static final GlobalKey<ScaffoldState> _scaffoldKey9 = new GlobalKey<ScaffoldState>(); //key per i pop-up
 
   _CVMagazzinoPageState({Key? key, required this.bancale});
 
@@ -73,9 +72,11 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
             child: Icon(Icons.delete_outlined, color: Colors.red)),
         onTap: () {
           setState(() {
+            print(list.length);
             fieldCount--;
-            list.removeAt(i);
-            items.removeAt(i);
+            list.removeLast();
+            quantitaI.removeLast();
+            codici.removeLast();
           });
         },
       ),
@@ -83,42 +84,36 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
   }
 
   //carica i codici nel rispettivo bancale
-  Carica() {
+  void Carica(String bancalee) async{
+    print(codici.length);
+    print(quantitaI.length);
     for (int i = 0; codici.length > i && quantitaI.length > i; i++) {
       int quantita = 0;
       if (quantitaI[i].text != "") {
         quantita = int.parse(quantitaI[i].text);
         print(quantita);
-        var file1 = File(
-            "/storage/emulated/0/Android/data/com.example.untitled/files/magazzino.xlsx");
+        var file1 = File("/storage/emulated/0/Android/data/com.example.untitled/files/magazzino.xlsx");
         var bytes = File(file1.path).readAsBytesSync();
         var excel = Excel.decodeBytes(bytes);
         var table = "magazzino";
         Sheet a = excel[table]; // foglio magazzino
         String riga = (a.maxRows + 1).toString();
-        a.updateCell(CellIndex.indexByString("B" + riga), bancale);
+        a.updateCell(CellIndex.indexByString("B" + riga), bancalee);
         a.updateCell(CellIndex.indexByString("C" + riga), codici[i].text);
         a.updateCell(CellIndex.indexByString("D" + riga), quantita);
-        a.updateCell(
-            CellIndex.indexByString("E" + riga),
-            DateTime.now().day.toString() +
-                "/" +
-                DateTime.now().month.toString());
+        a.updateCell(CellIndex.indexByString("E" + riga), DateTime.now().day.toString() + "/" + DateTime.now().month.toString());
 
         //salvo il file excell modificato
-        String Poutput =
-            "/storage/emulated/0/Android/data/com.example.untitled/files/magazzino.xlsx";
+        String Poutput = "/storage/emulated/0/Android/data/com.example.untitled/files/magazzino.xlsx";
         List<int>? fileBytes = excel.save();
         if (fileBytes != null) {
           File(join(Poutput))
             ..createSync(recursive: true)
             ..writeAsBytesSync(fileBytes);
         }
-        GlobalValues.showSnackbar(
-            _scaffoldKey9, "ATTENZIONE", "salvato con successo", "successo");
+        GlobalValues.showSnackbar(_scaffoldKey9, "ATTENZIONE", "salvato con successo", "successo");
       } else {
-        GlobalValues.showSnackbar(
-            _scaffoldKey9, "ATTENZIONE", "quantita non valida", "fallito");
+        GlobalValues.showSnackbar(_scaffoldKey9, "ATTENZIONE", "quantita non valida", "fallito");
       }
     }
   }
@@ -135,19 +130,7 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
         child: ListView(
           shrinkWrap: true,
           children: [
-            fieldCount == 0
-                ? const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "schiaccia \"+\"",
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  )
-                : Column(
+                Column(
                     children: [
                       ListView.builder(
                         itemCount: list.length,
@@ -160,22 +143,26 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
                             primary: Colors.red,
                           ),
                           onPressed: () {
-                            Carica;
+                            setState(() {
+                              if(fieldCount< 7){
+                                fieldCount++;
+                                list.add(buildField(fieldCount));
+                              }else{
+                                GlobalValues.showSnackbar(_scaffoldKey9, "ATTENZIONE", "limite massimo codici raggiunto", "fallito");
+                              }
+                            });
                           },
-                          child: const Text("CARICA")),
+                          child: const Icon(Icons.add)),
                     ],
-                  ),
+                ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.upload),
         backgroundColor: Colors.red,
         onPressed: () {
-          setState(() {
-            fieldCount++;
-            list.add(buildField(fieldCount));
-          });
+          Carica(bancale);
         },
       ),
     );

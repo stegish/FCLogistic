@@ -29,7 +29,7 @@ class _CMagazzinoState extends State<CMagazzino> {
       key: _scaffoldkey2,
       appBar: AppBar(
         title: const Center(
-          child: Text("MAGAZZINO     ",
+          child: Text("CARICA     ",
             style: TextStyle(fontWeight: FontWeight.bold),),
         ),
       ),
