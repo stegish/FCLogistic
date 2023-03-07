@@ -120,12 +120,8 @@ class _SMagazzinoState extends State<SMagazzino> {
   void VaiVMagazzino() {
     if(input[1].text!=''&&isChecked) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => VMagazzino(file: risultato, cliente: input[1].text)),);
-      print("CLIENTE1--------------");
-      print(input[1].text);
     }else{
       Navigator.push(context, MaterialPageRoute(builder: (context) => VMagazzino(file: risultato, commessa: input[1].text)),);
-      print("COMMESSA--------------");
-      print(input[1].text);
     }
   }
 

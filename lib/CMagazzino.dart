@@ -23,68 +23,18 @@ class CVMagazzino extends StatefulWidget {
 class _CVMagazzinoPageState extends State<CVMagazzino> {
   String bancale;
   List<Widget> list = [];
-  int fieldCount = 0;
+  int fieldCount = 1;
   List<Map<String, dynamic>> items = [];
   final _formKey = GlobalKey<FormState>();
-  var codici = [];
-  var quantitaI = [];
+  var codici = [TextEditingController()];
+  var quantitaI = [TextEditingController()];
   static final GlobalKey<ScaffoldState> _scaffoldKey9 = new GlobalKey<ScaffoldState>(); //key per i pop-up
 
   _CVMagazzinoPageState({Key? key, required this.bancale});
 
-  //permette di aggiungere i TextFormField alla lista
-  Widget buildField(int i) {
-    codici.add(TextEditingController());
-    quantitaI.add(TextEditingController());
-    return ListTile(
-      title: Row(children: <Widget>[
-        SizedBox(
-          width: 200,
-          height: 80,
-          child: TextFormField(
-            keyboardType: TextInputType.number,
-            controller: codici.last,
-            decoration: const InputDecoration(
-              hintText: 'inserire il codice',
-              labelText: 'codice *',
-            ),
-            validator: (val) => val!.isEmpty ? "inserisci codice" : null,
-          ),
-        ),
-        SizedBox(
-          width: 100,
-          height: 80,
-          child: TextFormField(
-            keyboardType: TextInputType.number,
-            controller: quantitaI.last,
-            decoration: const InputDecoration(
-              hintText: 'inserire quantita',
-              labelText: 'quantita *',
-            ),
-            validator: (val) => val!.isEmpty ? "inserisci quantita" : null,
-          ),
-        ),
-      ]),
-      trailing: InkWell(
-        child: SizedBox(
-            width: 25,
-            height: 80,
-            child: Icon(Icons.delete_outlined, color: Colors.red)),
-        onTap: () {
-          setState(() {
-            print(list.length);
-            fieldCount--;
-            list.removeLast();
-            quantitaI.removeLast();
-            codici.removeLast();
-          });
-        },
-      ),
-    );
-  }
-
   //carica i codici nel rispettivo bancale
   void Carica(String bancalee) async{
+    int c=0;
     print(codici.length);
     print(quantitaI.length);
     for (int i = 0; codici.length > i && quantitaI.length > i; i++) {
@@ -111,10 +61,14 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
             ..createSync(recursive: true)
             ..writeAsBytesSync(fileBytes);
         }
-        GlobalValues.showSnackbar(_scaffoldKey9, "ATTENZIONE", "salvato con successo", "successo");
+        c++;
       } else {
-        GlobalValues.showSnackbar(_scaffoldKey9, "ATTENZIONE", "quantita non valida", "fallito");
       }
+    }
+    if(c==quantitaI.length){
+      GlobalValues.showSnackbar(_scaffoldKey9, "ATTENZIONE", "salvato con successo", "successo");
+    }else{
+      GlobalValues.showSnackbar(_scaffoldKey9, "ATTENZIONE", "qualcosa è andato storto", "fallito");
     }
   }
 
@@ -133,9 +87,54 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
                 Column(
                     children: [
                       ListView.builder(
-                        itemCount: list.length,
+                        itemCount: fieldCount,
                         shrinkWrap: true,
-                        itemBuilder: (_, i) => buildField(i),
+                        itemBuilder: (BuildContext context, int index) {
+                          return ListTile(
+                            title: Row(children: <Widget>[
+                              SizedBox(
+                                width: 200,
+                                height: 80,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  controller: codici[index],
+                                  decoration: const InputDecoration(
+                                    hintText: 'inserire il codice',
+                                    labelText: 'codice *',
+                                  ),
+                                  validator: (val) => (val!.isEmpty||val.contains('.')||val.contains(',')||val.contains('-')||val.contains(' ')) ? "togli \". , -\" e spazi" : null,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 100,
+                                height: 80,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  controller: quantitaI[index],
+                                  decoration: const InputDecoration(
+                                    hintText: 'inserire quantita',
+                                    labelText: 'quantita *',
+                                  ),
+                                  validator: (val) => val!.isEmpty ? "inserisci quantita" : null,
+                                ),
+                              ),
+                            ]),
+                            trailing: InkWell(
+                              child: const SizedBox(
+                                  width: 25,
+                                  height: 80,
+                                  child: Icon(Icons.delete_outlined, color: Colors.red)),
+                              onTap: () {
+                                setState(() {
+                                  print(fieldCount);
+                                  fieldCount--;
+                                  quantitaI.removeLast();
+                                  codici.removeLast();
+                                });
+                              },
+                            ),
+                          );
+                        },
                       ),
                       const SizedBox(height: 12),
                       ElevatedButton(
@@ -146,7 +145,8 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
                             setState(() {
                               if(fieldCount< 7){
                                 fieldCount++;
-                                list.add(buildField(fieldCount));
+                                codici.add(TextEditingController());
+                                quantitaI.add(TextEditingController());
                               }else{
                                 GlobalValues.showSnackbar(_scaffoldKey9, "ATTENZIONE", "limite massimo codici raggiunto", "fallito");
                               }
@@ -159,10 +159,12 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.upload),
+        child: const Icon(Icons.download),
         backgroundColor: Colors.red,
         onPressed: () {
-          Carica(bancale);
+          if (_formKey.currentState!.validate()) {
+            Carica(bancale);
+          }
         },
       ),
     );

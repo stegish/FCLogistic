@@ -135,7 +135,7 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
         backgroundColor: Colors.red,
         onPressed: () {Aggiungi(quantitaI[0].text);},
         tooltip: 'ricerca',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.upload),
       ),
     );
   }
