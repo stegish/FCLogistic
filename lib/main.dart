@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:excel/excel.dart';
+import 'package:untitled/Backup.dart';
 import 'package:untitled/VMagazzino.dart';
 import 'Carica.dart';
 import 'DMag.dart';
@@ -131,6 +132,9 @@ class _SMagazzinoState extends State<SMagazzino> {
   void VaiCMagazzino(){
     Navigator.push(context, MaterialPageRoute(builder: (context) => CMagazzino()),);
   }
+  void VaiBackup(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Backup()),);
+  }
   void VaiSMagazzino(){
     Navigator.push(context, MaterialPageRoute(builder: (context) => SMagazzino()),);
   }
@@ -165,6 +169,11 @@ class _SMagazzinoState extends State<SMagazzino> {
               leading: Icon(Icons.file_download),
               title: Text('Carica'),
               onTap: VaiCMagazzino,
+            ),
+            ListTile(
+              leading: Icon(Icons.backup),
+              title: Text('Backup'),
+              onTap: VaiBackup,
             ),
           ],
         ),
