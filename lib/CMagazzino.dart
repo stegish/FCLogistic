@@ -106,7 +106,7 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
                                 ),
                               ),
                               SizedBox(
-                                width: 100,
+                                width: 95,
                                 height: 80,
                                 child: TextFormField(
                                   keyboardType: TextInputType.number,
@@ -121,7 +121,7 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
                             ]),
                             trailing: InkWell(
                               child: const SizedBox(
-                                  width: 25,
+                                  width: 16,
                                   height: 80,
                                   child: Icon(Icons.delete_outlined, color: Colors.red)),
                               onTap: () {

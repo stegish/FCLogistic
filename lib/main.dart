@@ -46,6 +46,7 @@ class _SMagazzinoState extends State<SMagazzino> {
   static final GlobalKey<ScaffoldState> _scaffoldkey2 = new GlobalKey<ScaffoldState>(); //per la comparsa dei pop-up
   final input = [TextEditingController(), TextEditingController()]; //variabile per l'input
   bool isChecked = false; //controlla se è un reso o no
+  final _formKey1 = GlobalKey<FormState>();
 
   //cerca nel foglio excell il codice immesso in inpput[0] e salva ogni ccorrispondenza su risultato tramite il formato DMag
   Future<List<DMag>> Cerca() async {
@@ -98,6 +99,7 @@ class _SMagazzinoState extends State<SMagazzino> {
       return TextFormField(
         keyboardType: TextInputType.text,
         controller: input[1],
+        validator: (val) => (val!.isEmpty) ? "inserisci il nome dell'azienda" : null,
         decoration: const InputDecoration(
           icon: Icon(Icons.wrap_text),
           hintText: 'nome azienda',
@@ -107,6 +109,7 @@ class _SMagazzinoState extends State<SMagazzino> {
       return TextFormField(
         keyboardType: TextInputType.text,
         controller: input[1],
+        validator: (val) => (val!.isEmpty) ? "inserisci il codice commessa" : null,
         decoration: const InputDecoration(
           icon: Icon(Icons.wrap_text),
           hintText: 'SJ.....',
@@ -163,16 +166,6 @@ class _SMagazzinoState extends State<SMagazzino> {
               title: Text('Carica'),
               onTap: VaiCMagazzino,
             ),
-            ListTile(
-              leading: Icon(Icons.file_upload),
-              title: Text('Scarica'),
-              onTap: VaiSMagazzino,
-            ),
-            ListTile(
-              leading: Icon(Icons.outbond),
-              title: Text('Resi'),
-              onTap: VaiVMagazzino,
-            ),
           ],
         ),
       ),
@@ -182,47 +175,55 @@ class _SMagazzinoState extends State<SMagazzino> {
             style: TextStyle(fontWeight: FontWeight.bold),),
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(padding: EdgeInsets.all(30.0),
-              child :TextFormField(
-                keyboardType: TextInputType.number,
-                controller: input[0],
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.numbers),
-                  hintText: 'inserire il codice',
-                  labelText: 'codice *',
+      body: Form(
+        key: _formKey1,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(padding: EdgeInsets.all(30.0),
+                child :TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: input[0],
+                  validator: (val) => (val!.isEmpty||val.contains('.')||val.contains(',')||val.contains('-')||val.contains(' ')) ? "inserisci il codice" : null,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.numbers),
+                    hintText: 'inserire il codice',
+                    labelText: 'codice *',
+                  ),
                 ),
               ),
-            ),
+                Padding(padding: EdgeInsets.all(30.0),
+                  child :Row(
+                  children: [
+                    Text("reso (spuntare se si effettua un reso)"),
+                    Checkbox(
+                    checkColor: Colors.white,
+                    fillColor: MaterialStateProperty.all(Colors.red),
+                    value: isChecked,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        isChecked = value!;
+                      });
+                    },
+                  ),
+                  ]
+                  ),
+              ),
               Padding(padding: EdgeInsets.all(30.0),
-                child :Row(
-                children: [
-                  Text("reso (spuntare se si effettua un reso)"),
-                  Checkbox(
-                  checkColor: Colors.white,
-                  fillColor: MaterialStateProperty.all(Colors.red),
-                  value: isChecked,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      isChecked = value!;
-                    });
-                  },
-                ),
-                ]
-                ),
-            ),
-            Padding(padding: EdgeInsets.all(30.0),
-              child :ritff(isChecked)
-            ),
-      ],
+                child :ritff(isChecked)
+              ),
+        ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
-        onPressed: avviaRicerca,
+        onPressed: (){
+          if (_formKey1.currentState!.validate()) {
+            avviaRicerca();
+          }
+        },
         tooltip: 'ricerca',
         child: const Icon(Icons.search),
       ),
