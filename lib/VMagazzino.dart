@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/SCMagazzino.dart';
-import 'package:untitled/InserisciResi.dart';
 import 'DMag.dart';
 
 //visualizzo i banccali trovati con il codice cercato
@@ -55,11 +54,7 @@ class VMagazzino extends StatelessWidget {
                                   right: BorderSide(width: 3.0, color: Colors.white24))),
                           child: IconButton(
                             icon:const Icon(Icons.outbox, color: Colors.white),
-                            onPressed: ()  {
-                              file[index].setA(dropDownValue);
-                              Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => IResi(file: file[index])),);}
+                            onPressed: ()  {}
                           ),
                         ),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),

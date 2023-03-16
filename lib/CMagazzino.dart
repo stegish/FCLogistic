@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/SCMagazzino.dart';
-import 'package:untitled/InserisciResi.dart';
 import 'DMag.dart';
 import 'dart:io';
 import 'package:excel/excel.dart';

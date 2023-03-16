@@ -98,7 +98,7 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
         }
         GlobalValues.showSnackbar(_scaffoldKey3, "FATTO","materiale scaricato","successo");
       }else{
-        GlobalValues.showSnackbar(_scaffoldKey3, "ATTENZIONE","scegliere se caricare o scaricare","attenzione");
+        GlobalValues.showSnackbar(_scaffoldKey3, "ATTENZIONE","quantita da togliere maggiore di magazzino","attenzione");
       }
     }
   }

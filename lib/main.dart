@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:excel/excel.dart';
 import 'package:untitled/Backup.dart';
+import 'package:untitled/Elimina.dart';
 import 'package:untitled/VMagazzino.dart';
 import 'Carica.dart';
 import 'DMag.dart';
@@ -138,6 +139,9 @@ class _SMagazzinoState extends State<SMagazzino> {
   void VaiSMagazzino(){
     Navigator.push(context, MaterialPageRoute(builder: (context) => SMagazzino()),);
   }
+  void VaiEMagazzino(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => EMagazzino()),);
+  }
 
   //esegue la funzione cerca e capisce se ha trovato risultati o no
   void avviaRicerca() async {
@@ -174,6 +178,11 @@ class _SMagazzinoState extends State<SMagazzino> {
               leading: Icon(Icons.backup),
               title: Text('Backup'),
               onTap: VaiBackup,
+            ),
+            ListTile(
+              leading: Icon(Icons.delete),
+              title: Text('Elimina'),
+              onTap: VaiEMagazzino,
             ),
           ],
         ),

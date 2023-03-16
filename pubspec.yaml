@@ -40,6 +40,7 @@ dependencies:
   open_file: ^3.2.1
   file_picker: 4.6.1
   awesome_snackbar_content: ^0.1.2
+  search_page: ^2.3.0
 
 dev_dependencies:
   flutter_test:
