@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/SCMagazzino.dart';
-import 'DMag.dart';
 import 'dart:io';
 import 'package:excel/excel.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:untitled/snakBar.dart';
-import 'DMag.dart';
 import 'package:path/path.dart';
 
 //visualizzo i banccali trovati con il codice cercato

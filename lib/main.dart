@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:excel/excel.dart';
 import 'package:untitled/Backup.dart';
-import 'package:untitled/Elimina.dart';
+import 'package:untitled/EMagazzino.dart';
 import 'package:untitled/VMagazzino.dart';
 import 'Carica.dart';
 import 'DMag.dart';
