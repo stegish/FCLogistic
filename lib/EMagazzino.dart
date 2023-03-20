@@ -19,7 +19,7 @@ class _EMagazzinoPageState extends State<EMagazzino>{
   _EMagazzinoPageState({Key? key});
   List<Xls> risultato = [];
   final _formKey1 = GlobalKey<FormState>();
-  final input = [TextEditingController()];
+  final input = [TextEditingController(),TextEditingController()];
   static final GlobalKey<ScaffoldState> _scaffoldkey13 = new GlobalKey<ScaffoldState>(); //per la comparsa dei pop-up
 
   void contiene(List<Xls> risultatoo){
@@ -92,7 +92,7 @@ class _EMagazzinoPageState extends State<EMagazzino>{
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Modifica Importante'),
-            content: const SingleChildScrollView(
+            content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
                   Text('Sicuro di voler spostare gli oggetti?'),
@@ -100,11 +100,20 @@ class _EMagazzinoPageState extends State<EMagazzino>{
               ),
             ),
             actions: <Widget>[
+          TextFormField(
+          keyboardType: TextInputType.text,
+            controller: input[1],
+            validator: (val) => (val!.isEmpty) ? "inserisci il nome del nuovo bancale" : null,
+            decoration: const InputDecoration(
+              icon: Icon(Icons.text_fields),
+              hintText: 'nome nuovo bancale',
+            ),
+          ),
               TextButton(
                 child: const Text('Sposta',style: const TextStyle(color:Colors.red),),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  SpostaBancale(aa, azione);
+                  SpostaBancale(aa, input[1].text);
                 },
               ),
               TextButton(
@@ -124,7 +133,7 @@ class _EMagazzinoPageState extends State<EMagazzino>{
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Modifica Importante'),
-            content: const SingleChildScrollView(
+            content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
                   Text('Sicuro di voler cancellare il codice?'),
@@ -168,15 +177,6 @@ class _EMagazzinoPageState extends State<EMagazzino>{
         }
         contiene(risultato);
       }
-      /*
-      for (int row = 0; row < a.maxRows&&risultato.length<20; row++) {
-        a.row(row).forEach((Data? cell1) {
-          if (cell1?.value.toString().contains(input[0].text)==true) {
-            risultato.add(Xls(cell1!.cellIndex, cell1.value.toString()));
-          }
-        });
-        contiene(risultato);
-      }*/
     }
   }
 
@@ -241,7 +241,18 @@ class _EMagazzinoPageState extends State<EMagazzino>{
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => VEMagazzino(Nbancale: risultato[index].nome,)),),],
-                            trailing: const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+                            trailing: Container(
+                              padding: const EdgeInsets.only(left: 12.0),
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      left: BorderSide(width: 3.0, color: Colors.white24))),
+                              child: IconButton(
+                                  icon:const Icon(Icons.move_down, color: Colors.white),
+                                  onPressed: ()  {
+                                    Sicuro("", risultato[index]);
+                                  }
+                              ),
+                            ),
                         ),
                       ),
                     );
@@ -250,15 +261,6 @@ class _EMagazzinoPageState extends State<EMagazzino>{
               )            ],
           ),
         ),
-      ),
-      floatingActionButton: ElevatedButton(
-        child: Icon(Icons.exit_to_app),
-        onPressed: () {
-          setState(() {
-            RealTimeSearch();
-            print(risultato);
-          });
-        },
       ),
   );
 

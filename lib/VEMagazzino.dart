@@ -31,7 +31,7 @@ class _VEMagazzinoPageState extends State<VEMagazzino>{
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Modifica Importante'),
-            content: const SingleChildScrollView(
+            content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
                   Text('Sicuro di voler spostare gli oggetti?'),
@@ -63,7 +63,7 @@ class _VEMagazzinoPageState extends State<VEMagazzino>{
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Modifica Importante'),
-            content: const SingleChildScrollView(
+            content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
                   Text('Sicuro di voler cancellare il codice?'),
