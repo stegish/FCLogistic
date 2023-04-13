@@ -2,11 +2,10 @@ import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:untitled/main.dart';
 import 'package:untitled/snakBar.dart';
 import 'DMag.dart';
 import 'package:path/path.dart';
-
-import 'main.dart';
 
 
 class SSMagazzino extends StatefulWidget{
@@ -56,8 +55,6 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
       print(precedenti);
       if(precedenti>quantita){
         a.updateCell(CellIndex.indexByString("D" + file.riga), precedenti - quantita);
-        print(DateTime.now());
-        print(magazzino.value);
         if(cliente!=null&&commessa==null){
           resi.updateCell(CellIndex.indexByString("B"+resiMax), file.bancale);
           resi.updateCell(CellIndex.indexByString("C"+resiMax), file.codice);
@@ -77,10 +74,7 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
         }
         GlobalValues.showSnackbar(_scaffoldKey3, "FATTO","materiale scaricato","successo");
       }else if(precedenti==quantita){
-        print(int.parse(file.riga));
         a.removeRow(int.parse(file.riga)-1);
-        print(DateTime.now());
-        print(magazzino.value);
         if(cliente!=null&&commessa==null){
           resi.updateCell(CellIndex.indexByString("B"+resiMax), file.bancale);
           resi.updateCell(CellIndex.indexByString("C"+resiMax), file.codice);
@@ -104,6 +98,7 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
       }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
