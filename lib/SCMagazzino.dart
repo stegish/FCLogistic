@@ -6,6 +6,8 @@ import 'package:untitled/snakBar.dart';
 import 'DMag.dart';
 import 'package:path/path.dart';
 
+import 'main.dart';
+
 
 class SSMagazzino extends StatefulWidget{
    DMag file;
@@ -108,7 +110,7 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
     return Scaffold(
       key: _scaffoldKey3,
       appBar: AppBar(
-        title: Text(file.bancale),
+        title: Center(child: Text(file.bancale)),
       ),
       body: Center(
         child: Form(

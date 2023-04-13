@@ -3,12 +3,23 @@ import 'package:untitled/SCMagazzino.dart';
 import 'DMag.dart';
 
 //visualizzo i banccali trovati con il codice cercato
-class VMagazzino extends StatelessWidget {
-  List<int> dropDownValue=[]; //numero risultati dropdown
-  List<DMag> file=[]; //lista risultati
+class VMagazzino extends StatefulWidget {
+  List<int> dropDownValue = []; //numero risultati dropdown
+  List<DMag> file = []; //lista risultati
   String? cliente;
   String? commessa;
-  VMagazzino({Key? key, required this.file, this.cliente, this.commessa}):super(key:key);
+
+  VMagazzino({Key? key, required this.file, this.cliente, this.commessa}) :super(key: key);
+
+  @override
+  State<VMagazzino> createState() => _VMagazzinoPageState(file: file, cliente: cliente, commessa: commessa);
+}
+  class _VMagazzinoPageState extends State<VMagazzino>{
+    List<int> dropDownValue = []; //numero risultati dropdown
+    List<DMag> file = []; //lista risultati
+    String? cliente;
+    String? commessa;
+  _VMagazzinoPageState({Key? key, required this.file, this.cliente, this.commessa});
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +75,7 @@ class VMagazzino extends StatelessWidget {
                         onTap: () =>[
                           print(commessa),
                           print(cliente),
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SSMagazzino(file: file[index], cliente: cliente, commessa: commessa)),),],
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SSMagazzino(file: file[index], cliente: cliente, commessa: commessa)),),],
                         trailing: const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
                       ),
                     ),
@@ -77,5 +86,4 @@ class VMagazzino extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -30,7 +30,13 @@ class MyApp extends StatelessWidget {
         bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Arial'),
       ),
     ),
-      home: const SMagazzino(),
+      home: SMagazzino(),
+      routes: <String, WidgetBuilder>{
+        '/CMagazzino': (BuildContext context) => new CMagazzino(),
+        '/Backup': (BuildContext context) => new Backup(),
+        '/SMagazzino': (BuildContext context) => new SMagazzino(),
+        '/EMagazzino': (BuildContext context) => new EMagazzino(),
+      }
     );
   }
 }
@@ -104,7 +110,7 @@ class _SMagazzinoState extends State<SMagazzino> {
         validator: (val) => (val!.isEmpty) ? "inserisci il nome dell'azienda" : null,
         decoration: const InputDecoration(
           icon: Icon(Icons.wrap_text),
-          hintText: 'nome azienda',
+          labelText: 'nome azienda',
         ),
       );
     }else{
@@ -131,16 +137,16 @@ class _SMagazzinoState extends State<SMagazzino> {
   }
 
   void VaiCMagazzino(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => CMagazzino()),);
+    Navigator.pushNamed(context,'/CMagazzino');
   }
   void VaiBackup(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Backup()),);
+    Navigator.pushNamed(context,'/Backup');
   }
   void VaiSMagazzino(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SMagazzino()),);
+    Navigator.pushNamed(context,'/SMagazzino');
   }
   void VaiEMagazzino(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => EMagazzino()),);
+    Navigator.pushNamed(context,'/EMagazzino');
   }
 
   //esegue la funzione cerca e capisce se ha trovato risultati o no

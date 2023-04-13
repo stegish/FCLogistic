@@ -49,16 +49,22 @@ class _BackupPageState extends State<Backup> {
         title: const Text("Backup"),
       ),
       body: Center(
-        child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Colors.red,
-            ),
-            onPressed: () {
-              setState(() {
-                FBackup();
-              });
-            },
-            child: const Icon(Icons.backup)),
+        child: Column(
+          children: <Widget>[
+            Padding(padding: EdgeInsets.all(200.0) ,),
+            Padding(padding: EdgeInsets.all(30.0),child: Text("PREMI PER ESEGUIRE IL BACKUP")),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red,
+                ),
+                onPressed: () {
+                  setState(() {
+                    FBackup();
+                  });
+                },
+                child: const Icon(Icons.backup)),
+          ],
+        ),
       ),
     );
   }

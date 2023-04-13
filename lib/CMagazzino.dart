@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:flutter/services.dart';
+import 'package:untitled/Carica.dart';
 import 'package:untitled/snakBar.dart';
 import 'package:path/path.dart';
 
@@ -57,6 +58,7 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
             ..writeAsBytesSync(fileBytes);
         }
         c++;
+        Navigator.pop(this.context);
       } else {
       }
     }
