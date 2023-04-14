@@ -8,6 +8,7 @@ import 'package:untitled/VMagazzino.dart';
 import 'Carica.dart';
 import 'DMag.dart';
 import 'package:untitled/snakBar.dart';
+import 'SCMagazzino.dart';
 
 void main() {
     runApp(const MyApp());

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:untitled/main.dart';
 import 'package:untitled/snakBar.dart';
 import 'DMag.dart';
+import 'main.dart';
 import 'package:path/path.dart';
 
 
@@ -130,7 +131,9 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
-        onPressed: () {Aggiungi(quantitaI[0].text);},
+        onPressed: () {
+          Navigator.pop(context);
+          Aggiungi(quantitaI[0].text);},
         tooltip: 'ricerca',
         child: const Icon(Icons.upload),
       ),

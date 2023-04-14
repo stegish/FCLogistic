@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'VEMagazzino.dart';
 import 'Xls.dart';
+import 'main.dart';
 
 class EMagazzino extends StatefulWidget{
   EMagazzino({Key? key}) :super(key: key);

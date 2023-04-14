@@ -21,6 +21,9 @@ class VMagazzino extends StatefulWidget {
     String? commessa;
   _VMagazzinoPageState({Key? key, required this.file, this.cliente, this.commessa});
 
+  void prova(int index) {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SSMagazzino(file: file[index], cliente: cliente, commessa: commessa)),);
+  }
   @override
   Widget build(BuildContext context) {
     const title = '          BANCALI';
@@ -64,19 +67,19 @@ class VMagazzino extends StatefulWidget {
                               border: Border(
                                   right: BorderSide(width: 3.0, color: Colors.white24))),
                           child: IconButton(
-                            icon:const Icon(Icons.outbox, color: Colors.white),
+                            icon:const Icon(Icons.auto_fix_high, color: Colors.white),
                             onPressed: ()  {}
                           ),
                         ),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
                         title:Text(
-                          "${file[index].codice}\n agiunto il:${file[index].data}\n pezzi:${file[index].pezzi}\nbancale:${file[index].bancale}",
+                          "${file[index].codice}\nagiunto il:${file[index].data}\npezzi:${file[index].pezzi}\nbancale:${file[index].bancale}",
                           style: const TextStyle(fontWeight: FontWeight.bold),),
                         onTap: () =>[
                           print(commessa),
                           print(cliente),
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SSMagazzino(file: file[index], cliente: cliente, commessa: commessa)),),],
-                        trailing: const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+                          prova(index),],
+                        trailing: const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 60),
                       ),
                     ),
                   );
