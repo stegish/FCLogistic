@@ -58,7 +58,6 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
             ..writeAsBytesSync(fileBytes);
         }
         c++;
-        Navigator.pop(this.context);
       } else {
       }
     }
@@ -161,6 +160,7 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
         onPressed: () {
           if (_formKey.currentState!.validate()) {
             Carica(bancale);
+            Navigator.pop(this.context);
           }
         },
       ),

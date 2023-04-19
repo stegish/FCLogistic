@@ -61,19 +61,9 @@ class VMagazzino extends StatefulWidget {
                     child: Container(
                       decoration: const BoxDecoration(color: Colors.red),
                       child : ListTile(
-                        leading: Container(
-                          padding: const EdgeInsets.only(right: 12.0),
-                          decoration: const BoxDecoration(
-                              border: Border(
-                                  right: BorderSide(width: 3.0, color: Colors.white24))),
-                          child: IconButton(
-                            icon:const Icon(Icons.auto_fix_high, color: Colors.white),
-                            onPressed: ()  {}
-                          ),
-                        ),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
                         title:Text(
-                          "${file[index].codice}\nagiunto il:${file[index].data}\npezzi:${file[index].pezzi}\nbancale:${file[index].bancale}",
+                          "codice: ${file[index].codice}\nagiunto il: ${file[index].data}\npezzi: ${file[index].pezzi}\nbancale: ${file[index].bancale}",
                           style: const TextStyle(fontWeight: FontWeight.bold),),
                         onTap: () =>[
                           print(commessa),
