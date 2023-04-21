@@ -28,6 +28,40 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
 
   _CVMagazzinoPageState({Key? key, required this.bancale});
 
+  //carica i pezzi anche in un file excell di copi che tiene traccia
+  //solo dei caricamenri con la specifica data
+  void CaricaBis(String bancalee) async{
+    print(codici.length);
+    print(quantitaI.length);
+    for (int i = 0; codici.length > i && quantitaI.length > i; i++) {
+      int quantita = 0;
+      if (quantitaI[i].text != "") {
+        quantita = int.parse(quantitaI[i].text);
+        print(quantita);
+        var file1 = File("/storage/emulated/0/Android/data/com.example.untitled/files/caricati.xlsx");
+        var bytes = File(file1.path).readAsBytesSync();
+        var excel = Excel.decodeBytes(bytes);
+        var table = "caricati";
+        Sheet a = excel[table]; // foglio magazzino
+        String riga = (a.maxRows + 1).toString();
+        a.updateCell(CellIndex.indexByString("A" + riga), bancalee);
+        a.updateCell(CellIndex.indexByString("B" + riga), codici[i].text);
+        a.updateCell(CellIndex.indexByString("C" + riga), quantita);
+        a.updateCell(CellIndex.indexByString("D" + riga), "CARICATO");
+        a.updateCell(CellIndex.indexByString("E" + riga), DateTime.now().day.toString() + "/" + DateTime.now().month.toString()+ "/"+DateTime.now().hour.toString()+":"+DateTime.now().minute.toString());
+
+        //salvo il file excell modificato
+        String Poutput = "/storage/emulated/0/Android/data/com.example.untitled/files/caricati.xlsx";
+        List<int>? fileBytes = excel.save();
+        if (fileBytes != null) {
+          File(join(Poutput))
+            ..createSync(recursive: true)
+            ..writeAsBytesSync(fileBytes);
+        }
+      }
+    }
+  }
+
   //carica i codici nel rispettivo bancale
   void Carica(String bancalee) async{
     int c=0;
@@ -98,7 +132,7 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
                                     hintText: 'inserire il codice',
                                     labelText: 'codice *',
                                   ),
-                                  validator: (val) => (val!.isEmpty||val.contains('.')||val.contains(',')||val.contains('-')||val.contains(' ')) ? "togli \". , -\" e spazi" : null,
+                                  validator: (val) => (val!.isEmpty||val.contains('.')||val.length!=8||val.contains(',')||val.contains('-')||val.contains(' ')) ? "togli \". , -\" e spazi, max 8 cifre" : null,
                                 ),
                               ),
                               SizedBox(
@@ -111,7 +145,12 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
                                     hintText: 'inserire quantita',
                                     labelText: 'quantita *',
                                   ),
-                                  validator: (val) => val!.isEmpty ? "inserisci quantita" : null,
+                                  validator: (val){
+                                    if(val!.isEmpty || val.length>8){
+                                      return "inserisci quantita";
+                                    }else{
+                                      return null;
+                                    }}
                                 ),
                               ),
                             ]),
@@ -160,6 +199,7 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
         onPressed: () {
           if (_formKey.currentState!.validate()) {
             Carica(bancale);
+            CaricaBis(bancale);
             Navigator.pop(this.context);
           }
         },
