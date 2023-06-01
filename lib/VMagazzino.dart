@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled/SCMagazzino.dart';
 import 'DMag.dart';
 
-//visualizzo i banccali trovati con il codice cercato
+//visualizza i banccali trovati con il codice cercato tramite una ListView
 class VMagazzino extends StatefulWidget {
   List<int> dropDownValue = []; //numero risultati dropdown
   List<DMag> file = []; //lista risultati

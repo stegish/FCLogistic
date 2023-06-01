@@ -8,7 +8,7 @@ import 'DMag.dart';
 import 'main.dart';
 import 'package:path/path.dart';
 
-
+//permette di scaricare il materiale dal magazzino
 class SSMagazzino extends StatefulWidget{
    DMag file;
    String? cliente;
@@ -28,6 +28,8 @@ class _SSMagazzinoPageState extends State<SSMagazzino>{
 
   final quantitaI = [TextEditingController()]; //quantita' da rimuovere
 
+
+  //tramite il codice e la quantità toglie dal file excell il materiale da scaricare
   void Aggiungi(String codice) async {
     int quantita = 0;
     if (quantitaI[0].text != "") {

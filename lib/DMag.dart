@@ -1,3 +1,5 @@
+
+//classe che permette il passaggio di informazioni utili tra le varie pagine
 class DMag{
   String riga="";
   int pezzi=0;

@@ -8,6 +8,7 @@ import 'package:path/path.dart';
 
 import 'Xls.dart';
 
+//visualizza i bancali presenti in magazzino che corrispondo alla stringa cercata
 class VEMagazzino extends StatefulWidget{
   String Nbancale;
   VEMagazzino({Key? key, required this.Nbancale}) :super(key:key);
@@ -22,6 +23,8 @@ class _VEMagazzinoPageState extends State<VEMagazzino>{
   List<Xls> lista=[];
   static final GlobalKey<ScaffoldState> _scaffoldkey23 = new GlobalKey<ScaffoldState>(); //per la comparsa dei pop-up
 
+  //chiede all'utente se è sicuro di procedere con l'eliminazione o lo spostamento
+  //del bancale selezionato tramite un pop-up
   Future<void> Sicuro(String azione, Xls aa) async{
     BuildContext c= _scaffoldkey23.currentState!.context;
     if(azione!="cancella"){
@@ -90,6 +93,8 @@ class _VEMagazzinoPageState extends State<VEMagazzino>{
     }
   }
 
+  //permette di cancellare un singolo codice all'interno del bancale tramite
+  //l'icona del cestino posta al lato del codice
   void CancellaCodice(Xls aa){
     var file = File("/storage/emulated/0/Android/data/com.example.untitled/files/magazzino.xlsx");
     var bytes = File(file.path).readAsBytesSync();
@@ -107,6 +112,8 @@ class _VEMagazzinoPageState extends State<VEMagazzino>{
     });
   }
 
+
+  //crea la lista con i risultati trovato nel magazzino che contangono la stringa cercata
   ListView CreaLista(){
     lista.clear();
     var file = File("/storage/emulated/0/Android/data/com.example.untitled/files/magazzino.xlsx");

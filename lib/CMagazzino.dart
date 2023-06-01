@@ -62,7 +62,7 @@ class _CVMagazzinoPageState extends State<CVMagazzino> {
     }
   }
 
-  //carica i codici nel rispettivo bancale
+  //carica i codici nel rispettivo bancale nella quantita rtichiesta
   void Carica(String bancalee) async{
     int c=0;
     print(codici.length);
