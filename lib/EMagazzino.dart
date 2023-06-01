@@ -80,7 +80,8 @@ class _EMagazzinoPageState extends State<EMagazzino>{
       RealTimeSearch();
     });
   }
-
+  //chiede all'utente se è sicuro di procedere con l'eliminazione o lo spostamento
+  //del bancale selezionato tramite un pop-up
   Future<void> Sicuro(String azione, Xls aa) async{
     BuildContext c= _scaffoldkey13.currentState!.context;
     if(azione!="cancella"){
@@ -159,6 +160,7 @@ class _EMagazzinoPageState extends State<EMagazzino>{
     }
   }
 
+  //ricerca in tempo reale i bancali che contengono la stringa inserita
   RealTimeSearch(){
     risultato.clear();
     if(input[0].text!=""){
